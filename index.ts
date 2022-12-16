@@ -1,14 +1,6 @@
 import { fromEvent, tap, of, delay, startWith } from 'rxjs';
 import { exhaustMap, mergeMap } from 'rxjs';
 
-const output = document.getElementById("output");
-var console = {
-    log: function(v){
-        const element = document.createElement('div');
-        element.innerText = v ;
-        output.appendChild(element)
-    }
-};
 const clicks = fromEvent(document.getElementById('save'), 'click');
 const mockSaveDocument = of('done !').pipe(
   delay(5000),
