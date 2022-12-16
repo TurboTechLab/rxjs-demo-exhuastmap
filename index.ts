@@ -1,9 +1,21 @@
-import './style.css';
+import {
+  fromEvent,
+  exhaustMap,
+  tap,
+  of,
+  delay,
+  startWith,
+} from 'rxjs';
 
-import { of, map, Observable } from 'rxjs';
+const clicks = fromEvent(document.getElementById('save'), 'click');
+const mockSaveDocument = of('saved !').pipe(
+  delay(10000),
+  startWith('saving...')
+);
 
-of('World')
-  .pipe(map((name) => `Hello, ${name}!`))
-  .subscribe(console.log);
+const saveDocument = clicks.pipe(
+  tap((click) => console.log('New Save Request...')),
+  exhaustMap(() => mockSaveDocument)
+);
 
-// Open the console in the bottom right to see results.
+saveDocument.subscribe((x) => console.log(x));
