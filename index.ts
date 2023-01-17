@@ -4,12 +4,12 @@ import { exhaustMap, mergeMap } from 'rxjs';
 const clicks = fromEvent(document.getElementById('save'), 'click');
 const mockSaveDocument = of('done !').pipe(
   delay(5000),
-  startWith('saving doc...')
+  startWith('Called saving doc...')
 );
 
 const saveDocument = clicks.pipe(
   tap((click) => console.log('New Save Request...')),
-  exhaustMap(() => mockSaveDocument),
+  exhaustMap(() => mockSaveDocument)
   //Compare exhaustMap by replacing with mergeMap
   //mergeMap(() => mockSaveDocument)
 );
